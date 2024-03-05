@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>ANNs &amp; Generative AI</title>
+<meta name="author" content="Adam J C"/>
+<style type="text/css">
+.underline { text-decoration: underline; }
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js/dist/reveal.css"/>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js/dist/theme/dracula.css" id="theme"/>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+<section id="sec-title-slide">
+<h1>ANNs &amp; Generative AI</h1><span><i>How to get started</i></span>
+</section>
+<section>
+<section id="slide-orgf399f21">
+<h2 id="orgf399f21">What we will cover</h2>
+<ul>
+<li>Brief overview of ANNs</li>
+<li>Brief overview of LLMs &amp; related concepts</li>
+<li>What GAI is good at
+<ul>
+<li>Specifically wrt. our jobs</li>
+
+</ul></li>
+<li>What GAI is not good at
+<ul>
+<li>Specifically wrt. our jobs</li>
+
+</ul></li>
+<li>How to get started</li>
+<li>Live demos of locally running LLMs</li>
+
+</ul>
+</section>
+</section>
+<section>
+<section id="slide-orgbfca2fe">
+<h2 id="orgbfca2fe">ANNs in Brief</h2>
+<div class="outline-text-2" id="text-orgbfca2fe">
+</div>
+</section>
+<section id="slide-orgabfe1fc">
+<h3 id="orgabfe1fc">Why ANNS at all?</h3>
+<p>
+1950s research by Frank Rosenblatt, wanted to create a replication of how neurons work. Could only solve linearly separable problems.
+</p>
+
+
+<div id="orgc480547" class="figure">
+<p><img src="./linear.jpg" alt="Graph showing a linearly solvable problem" />
+</p>
+</div>
+<aside class="notes">
+<p>
+This first neural network was hardware, with patch cables to change the connections between neurons. The weights of the edges were fixed, but the output weights were variably driven by a potentiometer.
+</p>
+
+<p>
+Marvin Minsky and Seymour Papert in their book, <i>Perceptrons</i> showed that it was impossible for these single layer perceptrons to learn an XOR function. The solution here was multi-layer perceptrons, which introduce the concept of 'hidden layers'.
+</p>
+
+<p>
+Research stagnated in the early 1970s and led to the "AI Winter" which lasted through through to the late 1980s
+</p>
+
+</aside>
+</section>
+<section id="slide-org6e06d88">
+<h3 id="org6e06d88">CNNs &amp; AlexNet</h3>
+
+<div id="org032de63" class="figure">
+<p><img src="./cnn.png" alt="Image showing an overview of convolutional neural networks" />
+</p>
+</div>
+<aside class="notes">
+<p>
+A series of small improvements such as the concept of  <span class="underline">'Neocognitron'</span>  and 'ReLU' (Rectified Linear Unit) by Kunihiko Fukushima helped Yann LeCun and his team to culminate with these learnings from Kunihiko along with the concept of 'back propagation' approach to detect character recognition. This became the foundation for Computer Vision.
+</p>
+
+<p>
+2012 AlexNet architecture was released, which is a CNN architecture, kicked off the so-called "AI Spring". It won an image recognition competition in 2012. It blew away the competition, utilising GPUs (not the first to do so).
+</p>
+
+<p>
+All of these are known as 'feedforward NNs'
+</p>
+
+<p>
+ReLU is an 'activation function'
+</p>
+
+<p>
+An 'activation function' is a function that calculates the output of the node based on its individual inputs and the weights of the input
+</p>
+
+</aside>
+</section>
+<section id="slide-org9af2c90">
+<h3 id="org9af2c90">Transformers</h3>
+
+<div id="orgf006282" class="figure">
+<p><img src="./optimus-prime.png" alt="A picture of Optimus Prime" />
+</p>
+</div>
+
+<p>
+<i>Trained on large amounts of existing information.</i>
+</p>
+
+<aside class="notes">
+<p>
+Another kind of feedforward NN are LLM transformers.
+</p>
+
+<p>
+When we talk about LLMs throughout the rest of this talk, I'm specifically talking about the transformer model based approach, and not other approaches (e.g. RNN or MAMBA)
+</p>
+
+<p>
+Not going to go into how they work, because I don't know. Just that they consist of an 'encoder' and 'decoder', and a feed-forward NN is situated within each of these. The outputs of each step is fed back into the input, which is how it is able to 'guess' the next 'correct' word. 
+</p>
+
+<p>
+Bigger models are better
+</p>
+
+<p>
+It is linearly more computationally expensive to train and use bigger models. For instance my 8GB graphics card can run a 7B parameter model, but only when the model has been quantized down to 5bits. Most commercial GPUs are in the region of 8-16GBs, which means running them together somehow, or buying custom racks. Expensive! NVidia is the biggest shovel seller in the world right now.
+</p>
+
+<p>
+Interesting approach I've seen recently is MAMBA, which is a different concept to FF NNs, not a transformer approach. Link to a blog at the end
+</p>
+
+<p>
+<a href="https://jackcook.com/2024/02/23/mamba.html">https://jackcook.com/2024/02/23/mamba.html</a>
+</p>
+
+</aside>
+</section>
+<section id="slide-orge84ab83">
+<h3 id="orge84ab83">Retrieval Augmented Generation (RAG)</h3>
+
+<div id="org3da4ac8" class="figure">
+<p><img src="./rag.png" alt="A diagram of RAG" />
+</p>
+</div>
+
+<aside class="notes">
+<p>
+Method for increasing accuracy in domain-specific prompts. These domains are typically things like business documents, internal source code, but could be anything. It's not the same as fine-tuning, as it doesn't change the underlying LLM. It utilises a tokenised dataset that you want to use, stores this data in a vector database by embedding the data as a vector.
+</p>
+
+<p>
+<a href="https://blogs.nvidia.com/blog/what-is-retrieval-augmented-generation/">https://blogs.nvidia.com/blog/what-is-retrieval-augmented-generation/</a>
+<a href="https://js.langchain.com/docs/modules/chains/popular/vector_db_qa">https://js.langchain.com/docs/modules/chains/popular/vector_db_qa</a>
+</p>
+
+</aside>
+</section>
+</section>
+<section>
+<section id="slide-org5ab9313">
+<h2 id="org5ab9313">What do LLMs do well</h2>
+<div class="outline-text-2" id="text-org5ab9313">
+</div>
+</section>
+<section id="slide-org6f15275">
+<h3 id="org6f15275">Simple functions</h3>
+<blockquote>
+<p>
+In Javascript, please write me a function that given an array of numbers, multiplies them by three and sums them together
+</p>
+</blockquote>
+
+<div class="org-src-container">
+
+<pre class="src src-js"><span style="color: #4f97d7; font-weight: bold;">function</span> <span style="color: #bc6ec5; font-weight: bold;">multiplyAndSum</span>(<span style="color: #7590db;">arr</span>) {
+    <span style="color: #4f97d7; font-weight: bold;">return</span> arr.reduce((total, num) =&gt; total + (num * 3), 0);
+}
+</pre>
+</div>
+</section>
+<section id="slide-orgc88c551">
+<h3 id="orgc88c551"></h3>
+<blockquote>
+<p>
+Can you rewrite this as a fat-arrow function?
+</p>
+</blockquote>
+
+<div class="org-src-container">
+
+<pre class="src src-js"><span style="color: #4f97d7; font-weight: bold;">const</span> <span style="color: #7590db;">multiplyAndSum</span> = arr =&gt; arr.reduce((total, num) =&gt; total + (num * 3), 0);
+</pre>
+</div>
+</section>
+<section id="slide-orgcb8d2d5">
+<h3 id="orgcb8d2d5"></h3>
+<blockquote>
+<p>
+Can you rewrite this without using reduce?
+</p>
+</blockquote>
+<div class="org-src-container">
+
+<pre class="src src-js"><span style="color: #4f97d7; font-weight: bold;">function</span> <span style="color: #bc6ec5; font-weight: bold;">multiplyAndSum</span>(<span style="color: #7590db;">arr</span>) {
+    <span style="color: #4f97d7; font-weight: bold;">let</span> <span style="color: #7590db;">sum</span> = 0;
+    <span style="color: #4f97d7; font-weight: bold;">for</span>(<span style="color: #4f97d7; font-weight: bold;">let</span> <span style="color: #7590db;">i</span>=0; i&lt;arr.length; i++){
+        sum += arr[i]*3;
+    }
+    <span style="color: #4f97d7; font-weight: bold;">return</span> sum;
+}
+</pre>
+</div>
+</section>
+<section id="slide-org32eea95">
+<h3 id="org32eea95"></h3>
+<blockquote>
+<p>
+Can you add some error-handling?
+</p>
+</blockquote>
+
+<div class="org-src-container">
+
+<pre class="src src-js"><span style="color: #4f97d7; font-weight: bold;">function</span> <span style="color: #bc6ec5; font-weight: bold;">multiplyAndSum</span>(<span style="color: #7590db;">arr</span>) {
+    <span style="color: #4f97d7; font-weight: bold;">if</span> (!Array.isArray(arr)) <span style="color: #4f97d7; font-weight: bold;">throw</span> <span style="color: #4f97d7; font-weight: bold;">new</span> <span style="color: #ce537a; font-weight: bold;">Error</span>(<span style="color: #2d9574;">'Input must be an array'</span>);
+    <span style="color: #4f97d7; font-weight: bold;">if</span> (arr.some((num) =&gt; <span style="color: #4f97d7; font-weight: bold;">typeof</span> num !== <span style="color: #2d9574;">'number'</span>))
+        <span style="color: #4f97d7; font-weight: bold;">throw</span> <span style="color: #4f97d7; font-weight: bold;">new</span> <span style="color: #ce537a; font-weight: bold;">Error</span>(<span style="color: #2d9574;">'All elements in the input must be numbers'</span>);
+
+    <span style="color: #4f97d7; font-weight: bold;">let</span> <span style="color: #7590db;">sum</span> = 0;
+    <span style="color: #4f97d7; font-weight: bold;">for</span> (<span style="color: #4f97d7; font-weight: bold;">let</span> <span style="color: #7590db;">i</span> = 0; i &lt; arr.length; i++) {
+        sum += arr[i] * 3;
+    }
+    <span style="color: #4f97d7; font-weight: bold;">return</span> sum;
+}
+</pre>
+</div>
+</section>
+<section id="slide-orged44345">
+<h3 id="orged44345"></h3>
+<blockquote>
+<p>
+I don't like writing tests, can you write me some jest tests?
+</p>
+</blockquote>
+</section>
+<section>
+<div class="org-src-container">
+
+<pre class="src src-js"><span style="color: #a9a8e0; background-color: #292e34; font-style: italic;">// </span><span style="color: #a9a8e0; background-color: #292e34; font-style: italic;">Assuming that you saved this file at './multiplyAndSum.js'</span>
+<span style="color: #a9a8e0; background-color: #292e34; font-style: italic;">// </span><span style="color: #a9a8e0; background-color: #292e34; font-style: italic;">You need to adjust the path accordingly if it's different.</span>
+<span style="color: #4f97d7; font-weight: bold;">const</span> <span style="color: #7590db;">multiplyAndSum</span> = require(<span style="color: #2d9574;">'./multiplyAndSum'</span>);
+
+describe(<span style="color: #2d9574;">"Multiply and Sum"</span>, () =&gt; {
+  it(<span style="color: #2d9574;">"should correctly process valid input"</span>, () =&gt; {
+    <span style="color: #4f97d7; font-weight: bold;">const</span> <span style="color: #7590db;">result</span> = multiplyAndSum([1,2,3]);
+    expect(result).toBe(18); <span style="color: #a9a8e0; background-color: #292e34; font-style: italic;">// </span><span style="color: #a9a8e0; background-color: #292e34; font-style: italic;">Adjust expected value based on how your function works</span>
+  });
+
+  it(<span style="color: #2d9574;">"should handle empty arrays"</span>, () =&gt; {
+    <span style="color: #4f97d7; font-weight: bold;">const</span> <span style="color: #7590db;">result</span> = multiplyAndSum([]);
+    expect(result).toBe(0);
+  });
+
+  it(<span style="color: #2d9574;">"should throw an error when input is not an array"</span>, () =&gt; {
+    expect(() =&gt; multiplyAndSum(<span style="color: #2d9574;">"not an array"</span>)).toThrow(<span style="color: #2d9574;">/Input must be an array/</span>);
+  });
+
+  it(<span style="color: #2d9574;">"should throw an error when the array contains non-numeric values"</span>, () =&gt; {
+    expect(() =&gt; multiplyAndSum([1,<span style="color: #2d9574;">'two'</span>,3])).toThrow(<span style="color: #2d9574;">/All elements in the input must be numbers/</span>);
+  });
+});
+</pre>
+</div>
+</section>
+<section id="slide-org0baf244">
+<h3 id="org0baf244"></h3>
+<p>
+LLMs are good at handling simple, well-defined, well-understood problems with a corpus of prior information
+</p>
+</section>
+<section id="slide-org2796385">
+<h3 id="org2796385">Bonus</h3>
+<blockquote>
+<p>
+Can you please rewrite the function in Rust?
+</p>
+</blockquote>
+<div class="org-src-container">
+
+<pre class="src src-rust">pub fn multiply_and_sum(numbers: &amp;[i32]) -&gt; i32 {
+    let sum: i32 = numbers.iter().map(|&amp;x| x*3).sum();
+    sum
+}
+</pre>
+</div>
+</section>
+</section>
+<section>
+<section id="slide-org12d2a54">
+<h2 id="org12d2a54">What do LLMs not do well</h2>
+<div class="outline-text-2" id="text-org12d2a54">
+</div>
+</section>
+<section id="slide-org91d850e">
+<h3 id="org91d850e">More complicated problems</h3>
+<blockquote>
+<p>
+Write me a function in javascript that adds two numbers together, call it 'add'. Write me another function that subtracts two numbers, call it 'subtract'. Write me a function called 'compose' that takes 4 numbers, it adds the first two using `add`, the second two using `add`, subtracts the results using `subtract`, and then returns the result of this as a number.
+</p>
+</blockquote>
+</section>
+<section>
+<pre class="example">
+function add(a, b) {
+    return a + b;
+}
+
+function subtract(a, b) {
+    return a - b;
+}
+
+function compose(a, b, c, d) {
+    var sum1 = add(a, b);
+    var sum2 = add(c, d);
+    var difference = subtract(sum1, sum2);
+    return difference;
+}
+</pre>
+</section>
+<section id="slide-org5ca2bdb">
+<h3 id="org5ca2bdb"></h3>
+<blockquote>
+<p>
+ok, now make it so that compose accepts a list of numbers. I want each pair in the list to be added, and then the resulting additions to be subtracted from one another, please return the result
+</p>
+</blockquote>
+</section>
+<section>
+<pre class="example">
+function compose(numbers) {
+    // Reduce the array into a single value by adding each element together
+    let sum = numbers.reduce((total, currentNum) =&gt; total + currentNum, 0);
+
+    // Divide the total sum into two equal parts
+    let halfSum = sum / 2;
+
+    // Subtract this half sum from the original sum
+    return sum - halfSum;
+}
+</pre>
+<p>
+Not so hot&#x2026;
+</p>
+</section>
+<section id="slide-org30ff36d">
+<h3 id="org30ff36d"></h3>
+<blockquote>
+<p>
+please make it so that compose accepts a list of numbers. I want each pair in the list to be added, and then the resulting additions to be subtracted from one another, e.g. [1, 2, 3, 4] =&gt; [3, 7] =&gt; 3 - 7 =&gt; -4. please return the result
+</p>
+</blockquote>
+</section>
+<section>
+<pre class="example">
+function addPairsAndSubtract(arr) {
+    if (arr.length &lt; 2 || arr.length % 2 !== 0) {
+        throw new Error('Array must have at least two elements and even number of elements');
+    }
+
+    // Add pairs of numbers and store them in an array
+    var sums = [];
+    for (var i = 0; i &lt; arr.length; i += 2) {
+        sums.push(add(arr[i], arr[i + 1]));
+    }
+
+    // If there are more than two sums, recursively call addPairsAndSubtract on the sums array
+    if (sums.length &gt; 2) {
+        return addPairsAndSubtract(sums);
+    } else {
+        // Subtract the last element from the first element
+        return subtract(sums[0], sums[1]);
+    }
+}
+
+// Helper functions
+function add(a, b) { return a + b }
+
+function subtract(a, b) { return a - b }
+</pre>
+</section>
+<section>
+<p>
+<i>Recursively</i> call subtract?
+</p>
+<aside class="notes">
+<p>
+For large <i>n</i>, not very effecient, probably overruns the callstack quite quickly, let's find out&#x2026;
+</p>
+
+</aside>
+</section>
+<section id="slide-orgefbdf1d">
+<h3 id="orgefbdf1d"></h3>
+<blockquote>
+<p>
+If the array is 6 elements long this doesn't work, because sums.length will be 3, which then causes an error
+</p>
+</blockquote>
+</section>
+<section>
+<pre class="example">
+function compose(numbers) {
+    // Check if the array has at least four elements
+    if (numbers.length &lt; 4) {
+        throw new Error('Compose requires at least four numbers');
+    }
+
+    let sums = [];
+    while (numbers.length &gt; 2) {
+        let pairSum = numbers.splice(0, 2).reduce((a, b) =&gt; a + b);
+        sums.push(pairSum);
+    }
+
+    let lastPairSum = numbers[0] + numbers[1];
+    sums.push(lastPairSum);
+
+    return diffArrayRecursive(sums);
+}
+
+function diffArrayRecursive(arr){
+    if (arr.length == 2){
+         return arr[0]-arr[1];
+    } else {
+         let diffArr = [arr[0] - arr[1]].concat(arr.slice(2));
+         return diffArrayRecursive(diffArr);
+    }
+}
+</pre>
+</section>
+<section id="slide-orgff715b4">
+<h3 id="orgff715b4"></h3>
+<blockquote>
+<p>
+Can you solve this without recursion?
+</p>
+</blockquote>
+</section>
+<section>
+<div class="org-src-container">
+
+<pre class="src src-python"><span style="color: #4f97d7; font-weight: bold;">def</span> <span style="color: #bc6ec5; font-weight: bold;">fibonacci_iterative</span>(n):
+    <span style="color: #a9a8e0; background-color: #292e34; font-style: italic;"># </span><span style="color: #a9a8e0; background-color: #292e34; font-style: italic;">Initialize the first two Fibonacci numbers</span>
+    <span style="color: #7590db;">f1</span> = 0
+    <span style="color: #7590db;">f2</span> = 1
+
+    <span style="color: #a9a8e0; background-color: #292e34; font-style: italic;"># </span><span style="color: #a9a8e0; background-color: #292e34; font-style: italic;">If n is less than or equal to 0, return</span>
+    <span style="color: #4f97d7; font-weight: bold;">if</span> n &lt;= 0:
+       <span style="color: #4f97d7; font-weight: bold;">return</span> <span style="color: #2d9574;">"Input should be positive"</span>
+    <span style="color: #4f97d7; font-weight: bold;">elif</span> n == 1:
+       <span style="color: #4f97d7; font-weight: bold;">return</span> f1
+    <span style="color: #4f97d7; font-weight: bold;">elif</span> n == 2:
+       <span style="color: #4f97d7; font-weight: bold;">return</span> f2
+    <span style="color: #4f97d7; font-weight: bold;">else</span>:
+      <span style="color: #4f97d7; font-weight: bold;">while</span> <span style="color: #a45bad;">True</span>:
+         <span style="color: #7590db;">n</span> -= 1
+         <span style="color: #7590db;">f3</span> = f1 + f2
+         <span style="color: #7590db;">f1</span> = f2
+         <span style="color: #7590db;">f2</span> = f3
+         <span style="color: #4f97d7; font-weight: bold;">if</span> n == 1:
+            <span style="color: #4f97d7; font-weight: bold;">return</span> f1
+         <span style="color: #4f97d7; font-weight: bold;">elif</span> n == 2:
+            <span style="color: #4f97d7; font-weight: bold;">return</span> f2
+</pre>
+</div>
+<aside class="notes">
+<p>
+The longer I talk to it, the stranger the output gets. It doesn't actually run these functions or test them, so it doesn't know if they work, but it is convinced everything is fine, because that's how transformers and FF NNs work
+</p>
+
+</aside>
+</section>
+<section id="slide-orgeb56766">
+<h3 id="orgeb56766">Bonus</h3>
+<blockquote>
+<p>
+Do LLMs lie, answer yes or no
+</p>
+</blockquote>
+<pre class="example">
+No
+</pre>
+</section>
+</section>
+<section>
+<section id="slide-org456410c">
+<h2 id="org456410c">We'll do it live</h2>
+</section>
+</section>
+<section>
+<section id="slide-org00e182e">
+<h2 id="org00e182e">Run your own</h2>
+<ul>
+<li>Llama.cpp <a href="https://github.com/ggerganov/llama.cpp">https://github.com/ggerganov/llama.cpp</a></li>
+<li>HuggingFace <a href="https://huggingface.co/">https://huggingface.co/</a></li>
+
+</ul>
+</section>
+<section id="slide-orgb4db40e">
+<h3 id="orgb4db40e">KoboldCPP</h3>
+<p>
+Very easy to get started with, on Windows &amp; Linux (I haven't tried on OSX)
+<img src="file:///Users/adamjc/sync/images/koboldcpp.png" alt="koboldcpp.png" />
+</p>
+</section>
+<section id="slide-orgbc7c9a7">
+<h3 id="orgbc7c9a7">TheBloke</h3>
+<p>
+<a href="https://huggingface.co/TheBloke">https://huggingface.co/TheBloke</a>
+</p>
+
+<p>
+Provides quantized models suitable for KoboldCPP
+</p>
+
+<p>
+Which means we can run them on our own hardware
+</p>
+</section>
+</section>
+<section>
+<section id="slide-org4bbbe21">
+<h2 id="org4bbbe21">Conclusion</h2>
+<p>
+Good for simple, well understood problems
+Bad for solving entirely novel solutions
+Still early days
+</p>
+</section>
+</section>
+<section>
+<section id="slide-orge9a2827">
+<h2 id="orge9a2827">Further Readings</h2>
+<ul>
+<li>Andrej Kaparthy - Neural Networks: Zero to Hero | <a href="https://www.youtube.com/playlist?list=PLAqhIrjkxbuWI23v9cThsA9GvCAUhRvKZ">https://www.youtube.com/playlist?list=PLAqhIrjkxbuWI23v9cThsA9GvCAUhRvKZ</a></li>
+<li>Attention is all you need |  <a href="https://arxiv.org/abs/1706.03762">https://arxiv.org/abs/1706.03762</a></li>
+
+</ul>
+</section>
+</section>
+<section>
+<section id="slide-org96d69ba">
+<h2 id="org96d69ba">Ta</h2>
+<p>
+<a href="https://github.com/adamjc/llm-slides">https://github.com/adamjc/llm-slides</a>
+</p>
+</section>
+</section>
+</div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js/dist/reveal.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js/plugin/markdown/markdown.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js/plugin/notes/notes.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js/plugin/search/search.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js/plugin/zoom/zoom.js"></script>
+<script>
+// Full list of configuration options available here:
+// https://github.com/hakimel/reveal.js#configuration
+Reveal.initialize({
+
+controls: true,
+progress: true,
+history: false,
+center: true,
+slideNumber: 'c',
+rollingLinks: false,
+keyboard: true,
+mouseWheel: false,
+fragmentInURL: false,
+hashOneBasedIndex: false,
+pdfSeparateFragments: true,
+overview: true,
+
+transition: 'convex',
+transitionSpeed: 'default',
+
+// Plugins with reveal.js 4.x
+plugins: [ RevealMarkdown, RevealNotes, RevealSearch, RevealZoom ],
+
+// Optional libraries used to extend reveal.js
+dependencies: [
+]
+
+});
+</script>
+</body>
+</html>
